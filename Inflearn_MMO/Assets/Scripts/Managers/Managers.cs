@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Managers : MonoBehaviour
+public class Managers : MonoSingleton<Managers>
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,10 @@ public class Managers : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Hello()
+    {
+        Debug.Log("Hello");
     }
 }
