@@ -5,11 +5,20 @@ using UnityEngine;
 public class Managers : MonoSingleton<Managers>
 {
     private InputManager m_InputManager = new InputManager();
-    public InputManager Input
+    public static InputManager Input
     {
         get
         {
-            return m_InputManager;
+            return Instance.m_InputManager;
+        }
+    }
+
+    private ResourceManager m_ResourceManager = new ResourceManager();
+    public static ResourceManager Resource
+    {
+        get
+        {
+            return Instance.m_ResourceManager;
         }
     }
 

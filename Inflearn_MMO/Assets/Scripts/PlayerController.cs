@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Managers.Instance.Input.KeyAction -= Input_Keyboard;
-        Managers.Instance.Input.KeyAction += Input_Keyboard;
+        Managers.Input.KeyAction -= Input_Keyboard;
+        Managers.Input.KeyAction += Input_Keyboard;
     }
 
     void Update()
