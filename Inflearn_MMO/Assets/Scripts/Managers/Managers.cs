@@ -22,6 +22,15 @@ public class Managers : MonoSingleton<Managers>
         }
     }
 
+    private UIManager m_UIManager = new UIManager();
+    public static UIManager UI
+    {
+        get
+        {
+            return Instance.m_UIManager;
+        }
+    }
+
     void Start()
     {
         

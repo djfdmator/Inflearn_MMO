@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Creature
 {
     #region Property
     [SerializeField]
@@ -56,11 +56,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Managers.Input.KeyAction -= Input_Keyboard;
-        Managers.Input.KeyAction += Input_Keyboard;
-
         Managers.Input.MouseAction -= Input_MouseClicked;
         Managers.Input.MouseAction += Input_MouseClicked;
+
+        Managers.UI.ShowSceneUI<UI_Inven>();
+        //Managers.UI.ClosePopupUI();
     }
 
     void Update()
@@ -79,29 +79,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Input_Keyboard()
+    public void MoveForward()
     {
-        float dt = Time.deltaTime;
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.position += Vector3.forward * dt * MoveSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position += Vector3.back * dt * MoveSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += Vector3.left * dt * MoveSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += Vector3.right * dt * MoveSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
-        }
+        transform.position += Vector3.forward * Time.deltaTime * MoveSpeed;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
+    }
+
+    public void MoveBack()
+    {
+        transform.position += Vector3.back * Time.deltaTime * MoveSpeed;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
+    }
+
+    public void MoveRight()
+    {
+        transform.position += Vector3.right * Time.deltaTime * MoveSpeed;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
+    }
+
+    public void MoveLeft()
+    {
+        transform.position += Vector3.left * Time.deltaTime * MoveSpeed;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
     }
 
     void Input_MouseClicked(Define.MouseEvent evt)

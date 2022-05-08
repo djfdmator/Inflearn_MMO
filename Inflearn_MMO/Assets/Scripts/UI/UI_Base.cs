@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
+    public abstract void Init();
+
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
 
     protected void Bind<T>(Type type) where T : UnityEngine.Object
@@ -30,5 +34,39 @@ public class UI_Base : MonoBehaviour
             return null;
 
         return objects[idx] as T;
+    }
+
+    protected Text GetText(int idx)
+    {
+        return Get<Text>(idx);
+    }
+    protected Button GetButton(int idx)
+    {
+        return Get<Button>(idx);
+    }
+    protected GameObject GetGameObject(int idx)
+    {
+        return Get<GameObject>(idx);
+    }
+    protected Image GetImage(int idx)
+    {
+        return Get<Image>(idx);
+    }
+
+    public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UI_EventHandler evt = Util.GetOrAddComponent<UI_EventHandler>(go);
+
+        switch(type)
+        {
+            case Define.UIEvent.Click:
+                evt.OnClickHandler -= action;
+                evt.OnClickHandler += action;
+                break;
+            case Define.UIEvent.Drag:
+                evt.OnDragHandler -= action;
+                evt.OnDragHandler += action;
+                break;
+        }
     }
 }
