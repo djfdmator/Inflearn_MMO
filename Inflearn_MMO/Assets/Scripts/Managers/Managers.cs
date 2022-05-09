@@ -31,6 +31,15 @@ public class Managers : MonoSingleton<Managers>
         }
     }
 
+    private ObserverManager m_ObserverManager = new ObserverManager();
+    public static ObserverManager Observer
+    {
+        get
+        {
+            return Instance.m_ObserverManager;
+        }
+    }
+
     void Start()
     {
         
